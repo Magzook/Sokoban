@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas>
+  <Path>images/atlas</Path>
+  <Regions>
+    <Region name="fieldTiles" x="0" y="0" width="448" height="64" />
+  </Regions>
+</TextureAtlas>
