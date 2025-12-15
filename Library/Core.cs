@@ -2,7 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGameGum;
 
 namespace Sokoban.Library;
@@ -15,12 +14,6 @@ public class Core : Game
     /// Gets a reference to the Core instance.
     /// </summary>
     public static Core Instance => instance;
-
-    // The scene that is currently active.
-    private static Scene s_activeScene;
-
-    // The next scene to switch to, if there is one.
-    private static Scene s_nextScene;
 
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.
@@ -43,9 +36,15 @@ public class Core : Game
     public static new ContentManager Content { get; private set; }
 
     /// <summary>
-    /// Gets a reference to to the input management system.
+    /// Gets a reference to the input management system.
     /// </summary>
     public static InputManager Input { get; private set; }
+    
+    // The scene that is currently active.
+    private static Scene activeScene;
+
+    // The next scene to switch to, if there is one.
+    private static Scene nextScene;
 
     /// <summary>
     /// Creates a new Core instance.
@@ -58,9 +57,7 @@ public class Core : Game
     {
         // Ensure that multiple cores are not created.
         if (instance != null)
-        {
             throw new InvalidOperationException($"Only a single Core instance can be created");
-        }
 
         // Store reference to engine for global member access.
         instance = this;
@@ -88,6 +85,16 @@ public class Core : Game
 
         // Mouse is visible by default.
         IsMouseVisible = true;
+    }
+    
+    public static void ChangeScene(Scene next)
+    {
+        // Only set the next scene value if it is not the same
+        // instance as the currently active scene.
+        if (activeScene != next)
+        {
+            nextScene = next;
+        }
     }
 
     protected override void Initialize()
@@ -119,7 +126,7 @@ public class Core : Game
 
         // if there is a next scene waiting to be switch to, then transition
         // to that scene.
-        if (s_nextScene != null)
+        if (nextScene != null)
         {
             TransitionScene();
         }
@@ -127,9 +134,9 @@ public class Core : Game
         GumService.Default.Update(gameTime);
 
         // If there is an active scene, update it.
-        if (s_activeScene != null)
+        if (activeScene != null)
         {
-            s_activeScene.Update(gameTime);
+            activeScene.Update(gameTime);
         }
 
         base.Update(gameTime);
@@ -142,9 +149,9 @@ public class Core : Game
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
         
         // If there is an active scene, draw it.
-        if (s_activeScene != null)
+        if (activeScene != null)
         {
-            s_activeScene.Draw(gameTime);
+            activeScene.Draw(gameTime);
         }
         
         // Always end the sprite batch when finished.
@@ -155,39 +162,29 @@ public class Core : Game
         base.Draw(gameTime);
     }
 
-    public static void ChangeScene(Scene next)
-    {
-        // Only set the next scene value if it is not the same
-        // instance as the currently active scene.
-        if (s_activeScene != next)
-        {
-            s_nextScene = next;
-        }
-    }
-
     private static void TransitionScene()
     {
         // If there is an active scene, dispose of it.
-        if (s_activeScene != null)
+        if (activeScene != null)
         {
-            s_activeScene.Dispose();
+            activeScene.Dispose();
         }
 
         // Force the garbage collector to collect to ensure memory is cleared.
         GC.Collect();
 
         // Change the currently active scene to the new scene.
-        s_activeScene = s_nextScene;
+        activeScene = nextScene;
 
         // Null out the next scene value so it does not trigger a change over and over.
-        s_nextScene = null;
+        nextScene = null;
 
         // If the active scene now is not null, initialize it.
         // Remember, just like with Game, the Initialize call also calls the
         // Scene.LoadContent
-        if (s_activeScene != null)
+        if (activeScene != null)
         {
-            s_activeScene.Initialize();
+            activeScene.Initialize();
         }
     }
 }

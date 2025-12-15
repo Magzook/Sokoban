@@ -4,6 +4,7 @@ public class Level
 {
     public readonly string Name;
     public readonly Warehouse Warehouse;
+    // TODO: добавить больше полей (таймер, количество сделанных кодов и пр.)
     
     public Level(string name, Warehouse warehouse)
     {
@@ -12,7 +13,5 @@ public class Level
     }
 
     public void OnPressDirection(int playableCharacterId, Direction direction)
-    {
-        Warehouse.HandlePlayerMovementIntention(playableCharacterId, direction);
-    }
+        => Warehouse.HandlePlayerMovementIntention(playableCharacterId, direction);
 }

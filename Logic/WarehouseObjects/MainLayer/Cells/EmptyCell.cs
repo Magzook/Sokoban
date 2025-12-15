@@ -2,7 +2,7 @@ namespace Sokoban.Logic.WarehouseObjects.MainLayer.Cells;
 
 public class EmptyCell : ICell
 {
-    private static readonly EmptyCell instance = new EmptyCell();
+    private static readonly EmptyCell instance = new();
 
     private EmptyCell()
     {

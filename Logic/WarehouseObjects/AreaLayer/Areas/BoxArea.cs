@@ -2,7 +2,7 @@ namespace Sokoban.Logic.WarehouseObjects.AreaLayer.Areas;
 
 public class BoxArea : IArea
 {
-     private static BoxArea instance = new BoxArea();
+     private static BoxArea instance = new ();
 
      private BoxArea()
      {

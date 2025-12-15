@@ -1,6 +1,6 @@
-namespace Sokoban.Serialization.XmlObjects;
-
 using System.Xml.Serialization;
+
+namespace Sokoban.Serialization.XmlObjects;
 
 public class Area
 {

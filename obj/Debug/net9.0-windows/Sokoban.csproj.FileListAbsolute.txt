@@ -35,3 +35,4 @@ C:\Users\User\RiderProjects\Sokoban\Sokoban\bin\Debug\net9.0-windows\FlatRedBall
 C:\Users\User\RiderProjects\Sokoban\Sokoban\bin\Debug\net9.0-windows\MonoGameGum.dll
 C:\Users\User\RiderProjects\Sokoban\Sokoban\bin\Debug\net9.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\User\RiderProjects\Sokoban\Sokoban\bin\Debug\net9.0-windows\TextCopy.dll
+C:\Users\User\RiderProjects\Sokoban\Sokoban\obj\Debug\net9.0-windows\Sokoban.sourcelink.json

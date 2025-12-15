@@ -1,21 +1,22 @@
-namespace Sokoban.Serialization;
-
 using System.Text;
 using System;
 using System.Collections.Generic;
-using Logic;
-using Logic.WarehouseObjects.AreaLayer;
-using Logic.WarehouseObjects.AreaLayer.Areas;
-using Logic.WarehouseObjects.MainLayer;
-using Logic.WarehouseObjects.MainLayer.Cells;
-using Logic.WarehouseObjects.PlayerLayer;
-using Logic.WarehouseObjects.PlayerLayer.PlayableCharacters;
+using Sokoban.Logic;
+using Sokoban.Logic.WarehouseObjects.AreaLayer;
+using Sokoban.Logic.WarehouseObjects.AreaLayer.Areas;
+using Sokoban.Logic.WarehouseObjects.MainLayer;
+using Sokoban.Logic.WarehouseObjects.MainLayer.Cells;
+using Sokoban.Logic.WarehouseObjects.PlayerLayer;
+using Sokoban.Logic.WarehouseObjects.PlayerLayer.PlayableCharacters;
 
+namespace Sokoban.Serialization;
+
+// TODO: добавить обработку всевозможных исключений, валидацию
 public static class Mapper
 {
-    private const char CHAR_EMPTY = '_';
-    private const char CHAR_WALL = 'W';
-    private const char CHAR_BOX = 'B';
+    private const char CharEmpty = '_';
+    private const char CharWall = 'W';
+    private const char CharBox = 'B';
     
     public static Level LevelFromDataObject(XmlObjects.Level dataLevel)
     {
@@ -65,9 +66,9 @@ public static class Mapper
                 var cellAsChar = rowCellsAsStrings[x][0];
                 field[x, y] = cellAsChar switch
                 {
-                    CHAR_WALL => Wall.Get(),
-                    CHAR_EMPTY => EmptyCell.Get(),
-                    CHAR_BOX => Box.Get(),
+                    CharWall => Wall.Get(),
+                    CharEmpty => EmptyCell.Get(),
+                    CharBox => Box.Get(),
                     _ => throw new Exception($"Unknown character: {cellAsChar} at row {y} column {x}")
                 };
             }
@@ -87,9 +88,9 @@ public static class Mapper
                 var cell = mainLayerField[x, y];
                 var cellAsChar = cell switch
                 {
-                    Wall => CHAR_WALL,
-                    EmptyCell => CHAR_EMPTY,
-                    Box => CHAR_BOX,
+                    Wall => CharWall,
+                    EmptyCell => CharEmpty,
+                    Box => CharBox,
                     _ => throw new Exception($"Don't know how to serialize cell {cell}")
                 };
                 builder.Append(cellAsChar).Append(' ');

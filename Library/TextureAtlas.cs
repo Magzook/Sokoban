@@ -11,25 +11,14 @@ namespace Sokoban.Library;
 
 public class TextureAtlas
 {
-    private readonly Texture2D Texture;
+    private readonly Texture2D texture;
     
     private readonly Dictionary<string, TextureRegion> regions;
 
     private TextureAtlas(Texture2D texture)
     {
-        Texture = texture;
+        this.texture = texture;
         regions = new Dictionary<string, TextureRegion>();
-    }
-
-    private void AddRegion(string name, int x, int y, int width, int height)
-    {
-        var region = new TextureRegion(Texture, x, y, width, height);
-        regions.Add(name, region);
-    }
-    
-    public TextureRegion GetRegion(string name)
-    {
-        return regions[name];
     }
     
     public static TextureAtlas FromFile(string fileName, ContentManager content)
@@ -66,5 +55,14 @@ public class TextureAtlas
         }
 
         return atlas;
+    }
+    
+    public TextureRegion GetRegion(string name)
+        => regions[name];
+    
+    private void AddRegion(string name, int x, int y, int width, int height)
+    {
+        var region = new TextureRegion(texture, x, y, width, height);
+        regions.Add(name, region);
     }
 }

@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameGum;
+using Gum.Forms.Controls;
 using Sokoban.Library;
 using Sokoban.Logic;
 using Sokoban.Logic.WarehouseObjects.AreaLayer;
@@ -15,7 +15,7 @@ using Sokoban.Logic.WarehouseObjects.PlayerLayer;
 using Sokoban.Logic.WarehouseObjects.PlayerLayer.PlayableCharacters;
 using Sokoban.Serialization;
 using Sokoban.UI;
-using Gum.Forms.Controls;
+
 namespace Sokoban.Scenes;
 
 public class EditorScene : Scene
@@ -25,11 +25,11 @@ public class EditorScene : Scene
     private TileSet tileSet;
     
     private ICell selectedCell = EmptyCell.Get();
-    private AddingMode addingMode = AddingMode.ADD_CELL;
+    private AddingMode addingMode = AddingMode.AddCell;
     private IArea selectedArea;
     private PlayableCharacter selectedCharacter;
     
-    private const int WAREHOUSE_WIDTH = 10;
+    private const int WAREHOUSE_WIDTH = 10; // размеры слада, в теории можно сделать намного больше
     private const int WAREHOUSE_HEIGHT = 7;
     
     public override void Initialize()
@@ -48,7 +48,7 @@ public class EditorScene : Scene
         var tilesAsSingleTextureRegion = textureAtlas.GetRegion("fieldTiles");
         tileSet = TileSet.FromFile("images/fieldTiles-definition.xml", Content, tilesAsSingleTextureRegion);
 
-        warehouse = Warehouse.MakeEmpty(WAREHOUSE_WIDTH, WAREHOUSE_HEIGHT);
+        warehouse = Warehouse.MakeFilledWithWalls(WAREHOUSE_WIDTH, WAREHOUSE_HEIGHT);
         warehouseDrawer = new WarehouseDrawer(warehouse, Core.SpriteBatch, tileSet);
     }
     
@@ -66,13 +66,13 @@ public class EditorScene : Scene
             {
                 switch (addingMode)
                 {
-                    case AddingMode.ADD_CELL:
+                    case AddingMode.AddCell:
                         warehouse.MainLayerField[targetCellX, targetCellY] = selectedCell;
                         break;
-                    case AddingMode.ADD_AREA:
+                    case AddingMode.AddArea:
                         warehouse.AreaMaster.SetAreaAt(targetCellX, targetCellY, selectedArea);
                         break;
-                    case AddingMode.ADD_CHARACTER:
+                    case AddingMode.AddCharacter:
                         var player = new Storekeeper(1, targetCellX,  targetCellY);
                         warehouse.DictIdToPlayer[player.Id] = player;
                         break;
@@ -87,36 +87,36 @@ public class EditorScene : Scene
         if (keyboard.WasKeyJustPressed(Keys.D1))
         {
             selectedCell = EmptyCell.Get();
-            addingMode = AddingMode.ADD_CELL;
+            addingMode = AddingMode.AddCell;
         }
         else if (keyboard.WasKeyJustPressed(Keys.D2))
         {
             selectedCell = Wall.Get();
-            addingMode = AddingMode.ADD_CELL;
+            addingMode = AddingMode.AddCell;
         }
         else if (keyboard.WasKeyJustPressed(Keys.D3))
         {
             selectedCell = Box.Get();
-            addingMode = AddingMode.ADD_CELL;
+            addingMode = AddingMode.AddCell;
         }
         else if (keyboard.WasKeyJustPressed(Keys.D4))
         {
             selectedArea = BoxArea.Get();
-            addingMode = AddingMode.ADD_AREA;
+            addingMode = AddingMode.AddArea;
         }
         else if (keyboard.WasKeyJustPressed(Keys.D5))
         {
-            addingMode = AddingMode.ADD_CHARACTER;
+            addingMode = AddingMode.AddCharacter;
         }
     }
     
     public override void Draw(GameTime gameTime)
     {
-        // нарисовать сетку
+        // TODO: нарисовать сетку под склад
+        // TODO: нарисовать инструкцию по использованию, какие кнопки на клавиатуре нажимать и пр.
         
         warehouseDrawer.Draw();
     }
-    
     
     private void CreateEditorPanel()
     {
@@ -124,8 +124,10 @@ public class EditorScene : Scene
         buttonsPanel.Anchor(Gum.Wireframe.Anchor.TopRight);
         buttonsPanel.AddToRoot();
         
-        var btnSave = new Button();
-        btnSave.Text = "Save";
+        var btnSave = new Button
+        {
+            Text = "Save",
+        };
         btnSave.Click += OnClickSave;
         buttonsPanel.AddChild(btnSave);
     }
@@ -134,6 +136,7 @@ public class EditorScene : Scene
     {
         var dataLevel = Mapper.LevelToDataObject(new Level("", warehouse));
         var serializer = new XmlSerializer(typeof(Serialization.XmlObjects.Level));
+        // TODO: заменить на папку проекта, добавить хотя бы на файловый диалог, чтоб можно было сохранять много уровней
         using (var fs = new FileStream("C:/Users/User/Desktop/levelFromEditor.xml", FileMode.Create))
         {
             serializer.Serialize(fs, dataLevel);
@@ -151,8 +154,8 @@ public class EditorScene : Scene
 
     private enum AddingMode
     {
-        ADD_CELL,
-        ADD_AREA,
-        ADD_CHARACTER
+        AddCell,
+        AddArea,
+        AddCharacter
     }
 }

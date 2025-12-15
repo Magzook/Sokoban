@@ -7,18 +7,18 @@ namespace Sokoban.Library;
 public abstract class Scene : IDisposable
 {
     /// <summary>
+    /// Gets a value that indicates if the scene has been disposed of.
+    /// </summary>
+    public bool IsDisposed { get; private set; }
+    
+    /// <summary>
     /// Gets the ContentManager used for loading scene-specific assets.
     /// </summary>
     /// <remarks>
     /// Assets loaded through this ContentManager will be automatically unloaded when this scene ends.
     /// </remarks>
     protected ContentManager Content { get; }
-
-    /// <summary>
-    /// Gets a value that indicates if the scene has been disposed of.
-    /// </summary>
-    public bool IsDisposed { get; private set; }
-
+    
     /// <summary>
     /// Creates a new scene instance.
     /// </summary>
@@ -43,9 +43,7 @@ public abstract class Scene : IDisposable
     /// still called as this is when LoadContent is called.
     /// </remarks>
     public virtual void Initialize()
-    {
-        LoadContent();
-    }
+        => LoadContent();
 
     /// <summary>
     /// Override to provide logic to load content for the scene.
@@ -56,9 +54,7 @@ public abstract class Scene : IDisposable
     /// Unloads scene-specific content.
     /// </summary>
     public virtual void UnloadContent()
-    {
-        Content.Unload();
-    }
+        => Content.Unload();
 
     /// <summary>
     /// Updates this scene.

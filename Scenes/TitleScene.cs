@@ -10,7 +10,7 @@ namespace Sokoban.Scenes;
 
 public class TitleScene : Scene
 {
-    private const string SOKOBAN_TEXT = "Sokoban";
+    private const string SokobanText = "Sokoban";
 
     // The font to use to render normal text.
     private SpriteFont _font;
@@ -27,9 +27,9 @@ public class TitleScene : Scene
         base.Initialize();
 
         // Set the position and origin for the Dungeon text.
-        Vector2 size = _font.MeasureString(SOKOBAN_TEXT);
+        var sizeVector = _font.MeasureString(SokobanText);
         sokobanTextPos = new Vector2(640, 100);
-        sokobanTextOrigin = size * 0.5f;
+        sokobanTextOrigin = sizeVector * 0.5f;
         
         InitializeUi();
     }
@@ -51,7 +51,7 @@ public class TitleScene : Scene
         // Draw the Dungeon text on top of that at its original position.
         Core.SpriteBatch.DrawString(
             _font, 
-            SOKOBAN_TEXT,
+            SokobanText,
             sokobanTextPos,
             Color.White,
             0.0f,
@@ -88,14 +88,10 @@ public class TitleScene : Scene
     }
 
     private void OnClickPlay(object sender, EventArgs e)
-    {
-        Core.ChangeScene(new PlayScene());
-    }
+        => Core.ChangeScene(new PlayScene());
     
     private void OnClickEditor(object sender, EventArgs e)
-    {
-        Core.ChangeScene(new EditorScene());
-    }
+        => Core.ChangeScene(new EditorScene());
     
     private void InitializeUi()
     {

@@ -1,7 +1,6 @@
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameGum;
 using Sokoban.Library;
@@ -15,8 +14,6 @@ public class PlayScene : Scene
 {
     private Level level;
     private LevelDrawer levelDrawer;
-    
-    private int previousKeysPressedCount = 0;
     
     public override void Initialize()
     {

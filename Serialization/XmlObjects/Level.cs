@@ -1,5 +1,6 @@
-namespace Sokoban.Serialization.XmlObjects;
 using System.Xml.Serialization;
+
+namespace Sokoban.Serialization.XmlObjects;
 
 [XmlRoot("Level")]
 public class Level

@@ -191,7 +191,7 @@ public class MouseInfo
     /// </summary>
     /// <param name="x">The x-coordinate location of the mouse cursor in screen space.</param>
     /// <param name="y">The y-coordinate location of the mouse cursor in screen space.</param>
-    public void SetPosition(int x, int y)
+    private void SetPosition(int x, int y)
     {
         Mouse.SetPosition(x, y);
         CurrentState = new MouseState(

@@ -1,29 +1,19 @@
-﻿using System;
-using Gum.Forms;
+﻿using Gum.Forms;
 using Gum.Forms.Controls;
 using MonoGameGum;
 using Sokoban.Library;
 using Sokoban.Scenes;
+using Sokoban.Logic;
+using Sokoban.UI;
 
 namespace Sokoban;
-
-using System.IO;
-using System.Xml.Serialization;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Logic;
-
-using Serialization;
-using UI;
 
 public class Game1 : Core
 {
     private Level level;
     private LevelDrawer levelDrawer;
     
-    private int previousKeysPressedCount = 0;
-    
-    public Game1() : base("Sokoban", 1280, 720, false)
+    public Game1() : base(title: "Sokoban", 1280, 720, fullScreen: false)
     {
         
     }

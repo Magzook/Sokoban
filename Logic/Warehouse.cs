@@ -1,15 +1,13 @@
-namespace Sokoban.Logic;
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using WarehouseObjects.AreaLayer;
-using WarehouseObjects.AreaLayer.Areas;
-using WarehouseObjects.MainLayer;
-using WarehouseObjects.MainLayer.Cells;
-using WarehouseObjects.PlayerLayer;
-using WarehouseObjects.PlayerLayer.PlayableCharacters;
+using Sokoban.Logic.WarehouseObjects.AreaLayer;
+using Sokoban.Logic.WarehouseObjects.AreaLayer.Areas;
+using Sokoban.Logic.WarehouseObjects.MainLayer;
+using Sokoban.Logic.WarehouseObjects.MainLayer.Cells;
+using Sokoban.Logic.WarehouseObjects.PlayerLayer;
+using Sokoban.Logic.WarehouseObjects.PlayerLayer.PlayableCharacters;
 
+namespace Sokoban.Logic;
 
 public class Warehouse
 {
@@ -27,15 +25,22 @@ public class Warehouse
         this.AreaMaster = areaMaster;
         foreach (var player in players)
             DictIdToPlayer.Add(player.Id, player);
+        
+        // TODO: вычислить BoxesOutOfPlaceCount, провалидировать
+        // TODO: areaMaster и игроков
+        // TODO: (координаты не могут выходить за пределы mainLayerField),
     }
 
-    public static Warehouse MakeEmpty(int width, int height)
+    /// <summary>
+    /// Для нужд редактора
+    /// </summary>
+    public static Warehouse MakeFilledWithWalls(int width, int height)
     {
         var field = new MainLayerField(width, height);
         for (var x = 0; x < width; x++)
         for (var y = 0; y < height; y++)
         {
-            field[x, y] = Wall.Get();
+            field[x, y] = Wall.Get(); // TODO: лучше заменить на EmptyCell.Get(), но тогда надо рисовать сетку
         }
         var areaMaster = new AreaMaster();
         var players = new List<PlayableCharacter>();
@@ -44,6 +49,8 @@ public class Warehouse
     
     public void HandlePlayerMovementIntention(int playableCharacterId, Direction direction)
     {
+        // TODO: можно возвращать enum, соответствующий результату обработки,
+        // TODO: тогда можно прикрутить audio для ходьбы, движения ящика и т. д.
         var playableCharacter = DictIdToPlayer.GetValueOrDefault(playableCharacterId);
         if (playableCharacter == null)
             throw new Exception($"Player with id {playableCharacterId} doesn't exist in the warehouse");

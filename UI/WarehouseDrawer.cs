@@ -1,16 +1,14 @@
-using Sokoban.Library;
-
-namespace Sokoban.UI;
-
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sokoban.Library;
 using Sokoban.Logic;
 using Sokoban.Logic.WarehouseObjects.AreaLayer.Areas;
 using Sokoban.Logic.WarehouseObjects.MainLayer.Cells;
 using Sokoban.Logic.WarehouseObjects.PlayerLayer.PlayableCharacters;
 
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+namespace Sokoban.UI;
 
 public class WarehouseDrawer
 {
@@ -42,20 +40,26 @@ public class WarehouseDrawer
         {
             var coords = pair.Key;
             var area = pair.Value;
-            var textureRegion = dictTypeToRegion.GetValueOrDefault(area.GetType()) ?? blank;
+            var textureRegion = dictTypeToRegion
+                .GetValueOrDefault(area.GetType())
+                ?? blank;
             DrawRegion(textureRegion, tileWidth * coords.x,  tileHeight * coords.y);
         }
 
         for (var x = 0; x < warehouse.MainLayerField.Width; x++)
         for (var y = 0; y < warehouse.MainLayerField.Height; y++)
         {
-            var textureRegion = dictTypeToRegion.GetValueOrDefault(warehouse.MainLayerField[x, y].GetType()) ?? blank;
+            var textureRegion = dictTypeToRegion
+                .GetValueOrDefault(warehouse.MainLayerField[x, y].GetType()) 
+                ?? blank;
             DrawRegion(textureRegion, tileWidth * x, tileHeight * y);
         }
 
         foreach (var player in warehouse.DictIdToPlayer.Values)
         {
-            var textureRegion = dictTypeToRegion.GetValueOrDefault(player.GetType()) ?? blank;
+            var textureRegion = dictTypeToRegion
+                .GetValueOrDefault(player.GetType())
+                ?? blank;
             DrawRegion(textureRegion, tileWidth * player.X, tileHeight * player.Y);
         }
     }
