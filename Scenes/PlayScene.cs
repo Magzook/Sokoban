@@ -30,6 +30,7 @@ public class PlayScene : Scene
         var tileSet = TileSet.FromFile("images/fieldTiles-definition.xml", Content, tilesAsSingleTextureRegion);
         
         var serializer = new XmlSerializer(typeof(Serialization.XmlObjects.Level));
+        // TODO: добавить выбор уровня или хотя бы файловый диалог
         using (var fs = new FileStream(Path.Combine(Content.RootDirectory, "levels/levelFromEditor.xml"), FileMode.Open))
         {
             var dataLevel = (Serialization.XmlObjects.Level)serializer.Deserialize(fs);
