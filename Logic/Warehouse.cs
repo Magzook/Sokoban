@@ -26,9 +26,10 @@ public class Warehouse
         foreach (var player in players)
             DictIdToPlayer.Add(player.Id, player);
         
-        // TODO: вычислить BoxesOutOfPlaceCount, провалидировать
-        // TODO: areaMaster и игроков
-        // TODO: (координаты не могут выходить за пределы mainLayerField),
+        // TODO: вычислить BoxesOutOfPlaceCount,
+        // TODO: провалидировать areaMaster и игроков
+        // TODO: (координаты не могут выходить за пределы mainLayerField);
+        // TODO: проверить, что игроки полностью окружены стенами
     }
 
     /// <summary>
