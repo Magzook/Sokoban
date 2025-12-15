@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="">
-    <Warehouse>
-        <MainLayerField>
-            W W W W W W W W W W
-            W _ _ B _ _ _ _ _ W
-            W _ W W _ _ W W _ W
-            W _ _ B _ _ _ W _ W
-            W _ W W _ B _ B _ W
-            W _ W _ W _ _ _ W W
-            W W W W W W W W W _
-        </MainLayerField>
-        <AreaEntries>
-            <AreaEntry x="1" y="3">
-                <Area class="BoxArea" />
-            </AreaEntry>
-            <AreaEntry x="1" y="1">
-                <Area class="BoxArea" />
-            </AreaEntry>
-            <AreaEntry x="4" y="4">
-                <Area class="BoxArea" />
-            </AreaEntry>
-            <AreaEntry x="7" y="5">
-                <Area class="BoxArea" />
-            </AreaEntry>
-        </AreaEntries>
-        <PlayableCharacters>
-            <PlayableCharacter id="1" x="1" y="5" class="Storekeeper" />
-        </PlayableCharacters>
-    </Warehouse>
+  <Warehouse>
+    <MainLayerField>
+W W W W W W W W W W 
+W _ _ B _ _ _ _ _ W 
+W _ W W _ _ W W _ W 
+W _ _ B _ _ _ W _ W 
+W _ W W _ B _ B _ W 
+W _ W _ W _ _ _ W W 
+W W W _ W W W W W _ 
+</MainLayerField>
+    <AreaEntries>
+      <AreaEntry x="1" y="3">
+        <Area class="BoxArea" />
+      </AreaEntry>
+      <AreaEntry x="1" y="1">
+        <Area class="BoxArea" />
+      </AreaEntry>
+      <AreaEntry x="4" y="4">
+        <Area class="BoxArea" />
+      </AreaEntry>
+      <AreaEntry x="7" y="5">
+        <Area class="BoxArea" />
+      </AreaEntry>
+    </AreaEntries>
+    <PlayableCharacters>
+      <PlayableCharacter id="1" x="1" y="5" class="Storekeeper" />
+    </PlayableCharacters>
+  </Warehouse>
 </Level>

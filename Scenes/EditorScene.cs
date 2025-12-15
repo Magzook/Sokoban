@@ -137,7 +137,7 @@ public class EditorScene : Scene
         var dataLevel = Mapper.LevelToDataObject(new Level("", warehouse));
         var serializer = new XmlSerializer(typeof(Serialization.XmlObjects.Level));
         // TODO: заменить на папку проекта, добавить хотя бы на файловый диалог, чтоб можно было сохранять много уровней
-        using (var fs = new FileStream("C:/Users/User/Desktop/levelFromEditor.xml", FileMode.Create))
+        using (var fs = new FileStream(Path.Combine(Content.RootDirectory, "levels/levelFromEditor.xml"), FileMode.Create))
         {
             serializer.Serialize(fs, dataLevel);
         }
