@@ -41,3 +41,6 @@
 #begin levels/level1.xml
 /copy:levels/level1.xml
 
+#begin levels/levelFromEditor.xml
+/copy:levels/levelFromEditor.xml
+
